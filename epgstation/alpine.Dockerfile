@@ -6,7 +6,7 @@ ENV FFMPEG_VERSION=7.0
 # ENV LD_LIBRARY_PATH=/opt/intel/mediasdk/lib64
 # ENV PKG_CONFIG_PATH=/opt/intel/mediasdk/lib64/pkgconfig
 
-RUN apk add --no-cache libgcc libstdc++ ca-certificates libcrypto1.1 libssl1.1 libgomp expat git lame libass libvpx opus libtheora libvorbis x264-libs x265-libs libva $DEV && \
+RUN apk add --no-cache libgcc libstdc++ ca-certificates libgomp expat git lame-libs libass libvpx opus libtheora libvorbis x264-libs x265-libs libva $DEV && \
 # aribb24
     mkdir /tmp/aribb24 && cd /tmp/aribb24 && \
     curl -fsSL https://github.com/nkoriyama/aribb24/tarball/master | tar -xz --strip-components=1 && \
