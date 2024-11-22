@@ -1,4 +1,3 @@
-version: '2'
 services:
   # mirakurun
   mirakurun:
@@ -53,8 +52,8 @@ services:
       - ./epgstation/data:/app/data
       - ./epgstation/logs:/app/logs
       - ./epgstation/recordedTmp:/app/recordedTmp
-      - /mnt/nas/recorded:/app/recorded
-      - /mnt/nas/thumbnail:/app/thumbnail
+      - nas_recorded:/app/recorded
+      - nas_thumbnail:/app/thumbnail
       - /var/run:/var/run
     privileged: true
     environment:
@@ -71,5 +70,15 @@ services:
     restart: always
 
 volumes:
-    mysql-db:
-        driver: local
+  mysql-db:
+    driver: local
+  nas_recorded:
+    driver_opts:
+      type: cifs
+      o: 'username=${{ secrets.nas_password }},password=${{ secrets.nas_password }}'
+      device: "//${{ secrets.nas_ip }}/recorded/"
+  nas_thumbnail:
+    driver_opts:
+      type: cifs
+      o: 'username=${{ secrets.nas_password }},password=${{ secrets.nas_password }}'
+      device: "//${{ secrets.nas_ip }}/thumbnail/"
