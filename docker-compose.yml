@@ -3,9 +3,10 @@ services:
   # mirakurun
   mirakurun:
     container_name: mirakurun
-    build:
-      context: ./mirakurun
-      dockerfile: "Dockerfile"
+    image: m1u7aku/softcas-mirakurun:latest-amd64
+#    build:
+#      context: ./mirakurun
+#      dockerfile: "Dockerfile"
     privileged: true
     ports:
       - "40772:40772"
