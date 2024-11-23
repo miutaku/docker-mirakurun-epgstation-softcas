@@ -1,5 +1,4 @@
 services:
-  # mirakurun
   mirakurun:
     container_name: mirakurun
     image: m1u7aku/softcas-mirakurun:latest-amd64
@@ -20,7 +19,6 @@ services:
       TZ: Asia/Tokyo
     restart: always
 
-  # mysql
   mysql:
     container_name: mariadb
     image: mariadb:10.5
@@ -41,7 +39,6 @@ services:
         max-size: "10m"
         max-file: "3"
 
-  # epgstation
   epgstation:
     container_name: epgstation
     build:
@@ -67,6 +64,21 @@ services:
 #     user: "1000:1000"
     devices:
       - /dev/dri:/dev/dri
+    restart: always
+
+  annict-subscription-scraper:
+    container_name: annict-subscription-scraper
+    image: ghcr.io/miutaku/annict-subscription-scraper:latest
+    restart: always
+
+  cronjob:
+    container_name: cronjob
+    image: willfarrell/crontab:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./cron/config.json:/opt/crontab/config.json
+      - ./cron/scripts:/scripts
+      - ./cron/crontab:/opt/crontab
     restart: always
 
 volumes:

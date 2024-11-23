@@ -1,0 +1,7 @@
+[
+    {
+      "comment": "1日ごとにprime video or dアニメストアで配信のないアニメの自動予約を実行",
+      "schedule": "@every 1d",
+      "command": "/scripts/check-not-subscription.sh danime_store amazon_prime"
+    }
+]
