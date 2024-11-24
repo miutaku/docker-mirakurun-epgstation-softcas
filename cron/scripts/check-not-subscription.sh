@@ -37,15 +37,16 @@ for service in "$@"; do
 done
 
 
-scraper_endpoint="http://annict-subscription-scraper:8080"
+scraperEndpoint="http://annict-subscription-scraper:8080"
+epgstationEndpoint="http://epgstation:8888"
 
-current_season=$(date +%Y)-$(date +%m | awk '{print ($1<=3) ? "winter" : ($1<=6) ? "spring" : ($1<=9) ? "summer" : "autumn"}')
-annict_bearer_token="${{ secrets.ANNICT_BEARER_TOKEN }}"
+currentSeason=$(date +%Y)-$(date +%m | awk '{print ($1<=3) ? "winter" : ($1<=6) ? "spring" : ($1<=9) ? "summer" : "autumn"}')
+annictBearerToken="${{ secrets.ANNICT_BEARER_TOKEN }}"
 
 current_anime_query=$(cat <<EOF
 query {
   searchWorks(
-    seasons: ["$current_season"],
+    seasons: ["$currentSeason"],
     orderBy: { field: WATCHERS_COUNT, direction: DESC },
   ) {
     edges {
@@ -61,13 +62,13 @@ EOF
 
 # 指定したシーズンのアニメを取得
 curl https://api.annict.com/graphql \
-           -H "Authorization: bearer $annict_bearer_token " \
+           -H "Authorization: bearer $annictBearerToken " \
            -X POST \
            -d "query=$current_anime_query" \
            | jq -rc '.data.searchWorks.edges[] | .node' > /tmp/.${current_season}_annict.json
 
 # サービスごとにサブスクリプションを確認
-all_unavailable=false
+allUnavailable=false
 
 while read -r anime; do
   annictId=$(echo "$anime" | jq -r '.annictId')
@@ -75,15 +76,15 @@ while read -r anime; do
   echo "アニメ: $title" && echo "ID: $annictId"
 
   # スクレイパーにアニメのIDを渡してサブスクリプション情報を取得
-  scraper_response=$(curl -s "$scraper_endpoint/?id=$annictId")
+  scraperResponse=$(curl -s "$scraperEndpoint/?id=$annictId")
   for service in "${checkService[@]}"; do
       # サービス名と対応する利用可能状態を取得
-      available=$(echo "$scraper_response" | jq ".services[] | select(.name == \"$service\") | .available")
+      available=$(echo "$scraperResponse" | jq ".services[] | select(.name == \"$service\") | .available")
       if [ "$available" == "true" ]; then
-          all_unavailable=false
+          allUnavailable=false
           break
       elif [ "$available" == "false" ]; then
-          all_unavailable=true
+          allUnavailable=true
       else
           echo "利用可能なサービス一覧が取得できませんでした。'\$available' は $available です。"
           exit 1
@@ -91,13 +92,70 @@ while read -r anime; do
   done
 
   # すべての選択サービスが利用不可の場合に処理を実行
-  if [ "$all_unavailable" == true ]; then
+  if [ "$allUnavailable" == true ]; then
     echo "すべての選択されたサービスが利用不可です。予約リストに追加します。"
+    echo $title >> /tmp/.${current_season}_not_subscription.txt
     # 実行したい処理をここに追加
-  elif [ "$all_unavailable" == false ]; then
+  elif [ "$allUnavailable" == false ]; then
     echo "選択されたサービスのうち、少なくとも1つは利用可能です。"
   else
-    echo "error.: $all_unavailable"
+    echo "error.: $allUnavailable"
   fi
   sleep 2 # annictに負荷をかけないようにするため
-done < /tmp/.${current_season}_annict.json
+done < /tmp/.${currentSeason}_annict.json
+
+titles=$(cat /tmp/.${currentSeason}_not_subscription.txt | uniq | tr '\n' '|' | sed 's/|$//')
+curl -X 'PUT' \
+  "http://${epgstationEndpoint}/api/rules/1" \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d "{ \
+  "isTimeSpecification": false,
+  "searchOption": {
+    "keyword": "${titles}",
+    "ignoreKeyword": "[再]",
+    "keyCS": false,
+    "keyRegExp": false,
+    "name": false,
+    "description": false,
+    "extended": false,
+    "ignoreKeyCS": false,
+    "ignoreKeyRegExp": false,
+    "ignoreName": true,
+    "ignoreDescription": true,
+    "ignoreExtended": false,
+    "GR": true,
+    "BS": true,
+    "CS": true,
+    "SKY": true,
+    "channelIds": [],
+    "genres": [
+      {
+        "genre": 7,
+        "subGenre": 0
+      }
+    ],
+    "times": [
+      {
+        "start": 127,
+        "range": 22,
+        "week": 6
+      }
+    ],
+    "isFree": true,
+    "durationMin": 300,
+  },
+  "reserveOption": {
+    "enable": true,
+    "allowEndLack": true,
+    "avoidDuplicate": true
+  },
+  "saveOption": {
+    "parentDirectoryName": "recorded"
+  },
+  "encodeOption": {
+    "mode1": "H.264",
+    "encodeParentDirectoryName1": "recorded",
+    "isDeleteOriginalAfterEncode": true
+  }
+}"
