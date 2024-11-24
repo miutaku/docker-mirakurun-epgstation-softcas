@@ -1,7 +1,7 @@
 FROM l3tnun/epgstation:master-debian
 
 ENV DEV="make gcc git g++ automake wget autoconf build-essential libass-dev libfreetype6-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev"
-ENV FFMPEG_VERSION=7.0.1
+ENV FFMPEG_VERSION=7.1
 
 RUN echo "deb http://http.us.debian.org/debian stable main contrib non-free" | tee -a /etc/apt/sources.list && \
     apt-get update && \
@@ -14,7 +14,7 @@ RUN echo "deb http://http.us.debian.org/debian stable main contrib non-free" | t
 #ffmpeg build
     mkdir /tmp/ffmpeg_sources && \
     cd /tmp/ffmpeg_sources && \
-    curl -fsSL http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2 | tar -xj --strip-components=1 && \
+    curl -fsSL http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.xz | tar Jxfv --strip-components=1 && \
     ./configure \
       --prefix=/usr/local \
       --disable-shared \
