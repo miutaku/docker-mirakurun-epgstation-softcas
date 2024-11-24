@@ -1,5 +1,5 @@
 port: 8888
-mirakurunPath: http://mirakurun:40772/
+mirakurunPath: http://106.72.56.1:63887/
 
 # dbtype: sqlite
 # sqlite:
@@ -27,7 +27,7 @@ recordedTmp: '%ROOT%/recordedTmp'
 recorded:
     - name: recorded
       path: '%ROOT%/recorded'
-      limitThreshold: 10000
+      limitThreshold: 100000
       action: 'remove'
 
 thumbnail: '%ROOT%/thumbnail'
@@ -41,14 +41,22 @@ encodeProcessNum: 4
 encodingFinishCommand: '/bin/sh %ROOT%/config/notify.sh finish_encording'
 concurrentEncodeNum: 1
 encode:
-    - name: H.264
-      cmd: '%NODE% %ROOT%/config/enc.js'
-      suffix: .mp4
-      rete: 4.0
-    - name: H.264(vaapi)
-      cmd: '/bin/bash %ROOT%/config/enc.sh main'
-      suffix: .mp4
-      rete: 4.0
+    - name: H.264(HW)
+      cmd: '%NODE% %ROOT%/config/epgs-multicodec-encjs/enc.js h264_vaapi'
+      suffix: -avcHW.mp4
+      rate: 4.0
+    - name: H.265(HW)
+      cmd: '%NODE% %ROOT%/config/epgs-multicodec-encjs/enc.js hevc_vaapi'
+      suffix: -nevcHW.mp4
+      rate: 4.0
+    - name: H.264(SW)
+      cmd: '%NODE% %ROOT%/config/epgs-multicodec-encjs/enc.js libx264'
+      suffix: -avc.mp4
+      rate: 4.0
+    - name: H.265(SW)
+      cmd: '%NODE% %ROOT%/config/epgs-multicodec-encjs/enc.js libx265'
+      suffix: -hevc.mp4
+      rate: 4.0
 
 urlscheme:
     m2ts:
@@ -72,13 +80,13 @@ stream:
                 - name: 720p(vaapi)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -vaapi_device /dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -i
-                      -c:v h264_vaapi -vf format=nv12|vaapi,hwupload,deinterlace_vaapi,scale_vaapi=w=1280:h=720 -b:v 5M -minrate:v 5M 
+                      -c:v h264_vaapi -vf format=nv12|vaapi,hwupload,deinterlace_vaapi,scale_vaapi=w=1280:h=720 -b:v 5M -minrate:v 5M
                       -maxrate:v 5M -bufsize:v
                       10485760 -preset veryfast -y -f mpegts pipe:1'
                 - name: 480p(vaapi)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -vaapi_device /dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -i
-                      -c:v h264_vaapi -vf format=nv12|vaapi,hwupload,deinterlace_vaapi,scale_vaapi=w=640:h=480 -b:v 5M -minrate:v 5M 
+                      -c:v h264_vaapi -vf format=nv12|vaapi,hwupload,deinterlace_vaapi,scale_vaapi=w=640:h=480 -b:v 5M -minrate:v 5M
                       -maxrate:v 5M -bufsize:v
                       10485760 -preset veryfast -y -f mpegts pipe:1'
                 - name: 720p
@@ -100,13 +108,13 @@ stream:
                 - name: 720p(vaapi)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -vaapi_device /dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -i
-                      -c:v h264_vaapi -vf format=nv12|vaapi,hwupload,deinterlace_vaapi,scale_vaapi=w=1280:h=720 -b:v 5M -minrate:v 5M 
+                      -c:v h264_vaapi -vf format=nv12|vaapi,hwupload,deinterlace_vaapi,scale_vaapi=w=1280:h=720 -b:v 5M -minrate:v 5M
                       -maxrate:v 5M -bufsize:v
                       10485760 -preset veryfast -y -f mpegts pipe:1'
                 - name: 480p(vaapi)
                   cmd:
                       '%FFMPEG% -dual_mono_mode main -vaapi_device /dev/dri/renderD128 -hwaccel vaapi -hwaccel_output_format vaapi -i
-                      -c:v h264_vaapi -vf format=nv12|vaapi,hwupload,deinterlace_vaapi,scale_vaapi=w=640:h=480 -b:v 5M -minrate:v 5M 
+                      -c:v h264_vaapi -vf format=nv12|vaapi,hwupload,deinterlace_vaapi,scale_vaapi=w=640:h=480 -b:v 5M -minrate:v 5M
                       -maxrate:v 5M -bufsize:v
                       10485760 -preset veryfast -y -f mpegts pipe:1'
                 - name: 720p
