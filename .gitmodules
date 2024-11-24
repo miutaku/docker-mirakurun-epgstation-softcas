@@ -1,3 +1,6 @@
 [submodule "epgstation/config/epgs-multicodec-encjs"]
 	path = epgstation/config/epgs-multicodec-encjs
 	url = https://gitlab.com/oioi555/epgs-multicodec-encjs
+[submodule "cron/docker-crontab"]
+	path = cron/docker-crontab
+	url = https://github.com/willfarrell/docker-crontab

@@ -49,7 +49,9 @@ services:
 
   cronjob:
     container_name: cronjob
-    image: willfarrell/crontab:latest
+    build:
+      context: "./cron/docker-crontab"
+      dockerfile: "Dockerfile"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./cron/config.json:/opt/crontab/config.json
