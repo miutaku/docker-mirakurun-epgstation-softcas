@@ -1,5 +1,5 @@
 port: 8888
-mirakurunPath: http://106.72.56.1:63887/
+mirakurunPath: http://mirakurun:63887/
 
 # dbtype: sqlite
 # sqlite:
