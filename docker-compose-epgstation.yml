@@ -74,4 +74,3 @@ volumes:
 networks:
   default:
     name: rec_server
-    external: true
