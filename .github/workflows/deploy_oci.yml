@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - v2
+  workflow_run:
+    workflows: ["docker push"]
+    types:
+      - completed
 
 jobs:
   deploy:
