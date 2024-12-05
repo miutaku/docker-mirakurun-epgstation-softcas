@@ -51,7 +51,7 @@ services:
   cronjob:
     container_name: cronjob
     build:
-      context: "./cron/docker-crontab"
+      context: "./cron"
       dockerfile: "Dockerfile"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
