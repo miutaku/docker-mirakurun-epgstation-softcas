@@ -21,7 +21,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: create meta
+      - name: create epgstation meta
         id: meta
         uses: docker/metadata-action@v5
         with:
@@ -30,10 +30,10 @@ jobs:
             type=raw,value=latest
             type=sha,prefix=,suffix=,format=short
 
-      - name: Build and push container image
+      - name: Build and push epgstation container image
         uses: docker/build-push-action@v5
         with:
-          file: ./Dockerfile.debian
+          file: ./epgstation/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           platforms: linux/amd64,linux/arm64
