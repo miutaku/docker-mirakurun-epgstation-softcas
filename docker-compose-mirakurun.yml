@@ -1,0 +1,25 @@
+---
+services:
+  mirakurun:
+    container_name: mirakurun
+    image: m1u7aku/softcas-mirakurun:latest-amd64
+#    build:
+#      context: "./mirakurun"
+#      dockerfile: "Dockerfile"
+    privileged: true
+    ports:
+      - "40772:40772"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./mirakurun/conf:/usr/local/etc/mirakurun
+      - ./mirakurun/db:/usr/local/var/db/mirakurun
+    devices:
+      - /dev/bus:/dev/bus
+      - /dev/dvb:/dev/dvb
+    environment:
+      TZ: Asia/Tokyo
+    restart: always
+
+networks:
+  default:
+    name: rec_server
