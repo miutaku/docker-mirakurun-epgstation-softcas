@@ -17,6 +17,7 @@ RUN apt-get update && \
     cd /tmp/ffmpeg_sources && \
     git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg && \
     cd ffmpeg && \
+    git checkout release/$FFMPEG_VERSION && \
     ./configure \
       --prefix=/usr/local \
       --disable-shared \
