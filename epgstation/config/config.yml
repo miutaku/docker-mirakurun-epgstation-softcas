@@ -1,30 +1,27 @@
 port: 8888
 mirakurunPath: http://mirakurun:40772/
 
-# dbtype: sqlite
-# sqlite:
-#   extensions:
-#     - '/hoge/regexp.dylib'
-#   regexp: true
-
 dbtype: mysql
 mysql:
-    host: mysql
-    port: 3306
-    user: epgstation
-    password: epgstation
+    host: __MYSQL_HOST__
+    port: __MYSQL_PORT__
+    user: __MYSQL_USER__
+    password: __MYSQL_PASSWORD__
     database: epgstation
-
+needToReplaceEnclosingCharacters: true
 epgUpdateIntervalTime: 10
 
 conflictPriority: 1
 recPriority: 2
-
+isEnabledDropCheck: true
+recordingStartCommand: '/bin/sh %ROOT%/config/notify.sh Start_recording'
 recordedFormat: '%YEAR%年%MONTH%月%DAY%日%HOUR%時%MIN%分%SEC%秒-%TITLE%'
 recordedFileExtension: .m2ts
 recorded:
     - name: recorded
       path: '%ROOT%/recorded'
+      limitThreshold: 10000
+      action: 'remove'
 
 thumbnail: '%ROOT%/thumbnail'
 thumbnailSize: 480x270
@@ -34,22 +31,23 @@ ffmpeg: /usr/local/bin/ffmpeg
 ffprobe: /usr/local/bin/ffprobe
 
 encodeProcessNum: 4
+encodingFinishCommand: '/bin/sh %ROOT%/config/notify.sh finish_encording'
 concurrentEncodeNum: 1
 encode:
     - name: H.264
       cmd: '%NODE% %ROOT%/config/enc.js'
       suffix: .mp4
-      rate: 4.0
+      rete: 4.0
 
 urlscheme:
     m2ts:
-        ios: vlc-x-callback://x-callback-url/stream?url=PROTOCOL%3A%2F%2FADDRESS
-        android: intent://ADDRESS#Intent;action=android.intent.action.VIEW;type=video/*;scheme=PROTOCOL;end
+        ios: vlc-x-callback://x-callback-url/stream?url=http://ADDRESS
+        android: intent://ADDRESS#Intent;package=org.videolan.vlc;type=video;scheme=http;end
     video:
-        ios: infuse://x-callback-url/play?url=PROTOCOL://ADDRESS
-        android: intent://ADDRESS#Intent;action=android.intent.action.VIEW;type=video/*;scheme=PROTOCOL;end
+        ios: infuse://x-callback-url/play?url=http://ADDRESS
+        android: intent://ADDRESS#Intent;package=com.mxtech.videoplayer.pro;type=video;scheme=http;end
     download:
-        ios: vlc-x-callback://x-callback-url/download?url=PROTOCOL%3A%2F%2FADDRESS&filename=FILENAME
+        ios: vlc-x-callback://x-callback-url/stream?url=http://ADDRESS
 
 stream:
     live:

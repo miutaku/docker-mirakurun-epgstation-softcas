@@ -1,0 +1,79 @@
+---
+services:
+# Using TiDB serverless
+#  mysql:
+#    container_name: mariadb
+#    image: mariadb:10.5
+#    volumes:
+#      - ./mysql-db:/var/lib/mysql
+#    environment:
+#      MYSQL_USER: epgstation
+#      MYSQL_PASSWORD: epgstation
+#      MYSQL_ROOT_PASSWORD: epgstation
+#      MYSQL_DATABASE: epgstation
+#      TZ: "Asia/Tokyo"
+#    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1
+#    restart: always
+#    logging:
+#      options:
+#        max-size: "10m"
+#        max-file: "3"
+
+  epgstation:
+    container_name: epgstation
+    build:
+      context: "./epgstation"
+      dockerfile: "Dockerfile"
+    volumes:
+      - ./epgstation/config:/app/config
+      - ./epgstation/data:/app/data
+      - ./epgstation/logs:/app/logs
+      - ./epgstation/recordedTmp:/app/recordedTmp
+      - nas_recorded:/app/recorded
+      - nas_thumbnail:/app/thumbnail
+      - /var/run:/var/run
+#    privileged: true
+    environment:
+      TZ: "Asia/Tokyo"
+      NOTIFY_WEBHOOK: 
+#    depends_on:
+#      - mysql
+    ports:
+      - "8888:8888"
+      - "8889:8889"
+    restart: always
+
+  annict-subscription-scraper:
+    container_name: annict-subscription-scraper
+    image: ghcr.io/miutaku/annict-subscription-scraper:latest
+    restart: always
+
+  cronjob:
+    container_name: cronjob
+    build:
+      context: "./cron/docker-crontab"
+      dockerfile: "Dockerfile"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./cron/config.json:/opt/crontab/config.json
+      - ./cron/scripts:/scripts
+      - ./cron/crontab:/opt/crontab
+    restart: always
+
+volumes:
+#  mysql-db:
+#    driver: local
+  nas_recorded:
+    driver_opts:
+      type: cifs
+      o: 'username=__NFS_USER__,password=__NFS_PASSWORD__'
+      device: "//__NFS_HOST__/recorded/"
+  nas_thumbnail:
+    driver_opts:
+      type: cifs
+      o: 'username=__NFS_USER__,password=__NFS_PASSWORD__'
+      device: "//__NFS_HOST__/thumbnail/"
+
+networks:
+  default:
+    name: rec_server
