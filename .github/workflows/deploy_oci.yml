@@ -29,9 +29,11 @@ jobs:
             git clone https://github.com/miutaku/docker-mirakurun-epgstation-softcas.git
             cd docker-mirakurun-epgstation-softcas
             git checkout . && git checkout main
-            sed -i 's/__MYSQL_HOST__/${{ secrets.HEATWAVE_HOST }}/g' epgstation/config/config.yml
-            sed -i 's/__MYSQL_USER__/${{ secrets.HEATWAVE_USER }}/g' epgstation/config/config.yml
-            sed -i 's/__MYSQL_PASSWORD__/${{ secrets.HEATWAVE_PASSWORD }}/g' epgstation/config/config.yml
+            sed -i 's/__MYSQL_HOST__/${{ secrets.TiDB_HOST }}/g' epgstation/config/config.yml
+            sed -i 's/__MYSQL_PORT__/${{ secrets.TiDB_PORT }}/g' epgstation/config/config.yml
+            sed -i 's/__MYSQL_USER__/${{ secrets.TiDB_USER }}/g' epgstation/config/config.yml
+            sed -i 's/__MYSQL_PASSWORD__/${{ secrets.TiDB_PASSWORD }}/g' epgstation/config/config.yml
+            sed -i 's/__NOTIFY_WEBHOOK__/${{ secrets.NOTIFY_WEBHOOK }}/g' epgstation/config/notify.sh
             sed -i 's/__NFS_USER__/${{ secrets.NFS_USER }}/g' docker-compose-epgstation.yml
             sed -i 's/__NFS_PASSWORD__/${{ secrets.NFS_PASSWORD }}/g' docker-compose-epgstation.yml
             sed -i 's/__NFS_HOST__/${{ secrets.NFS_HOST }}/g' docker-compose-epgstation.yml
