@@ -21,7 +21,7 @@ services:
 
   epgstation:
     container_name: epgstation
-    image: ghcr.io/miutaku/epgstation:latest
+    image: ghcr.io/miutaku/epgstation-miutaku-oci:latest
     volumes:
       - ./epgstation/config:/app/config
       - ./epgstation/data:/app/data
