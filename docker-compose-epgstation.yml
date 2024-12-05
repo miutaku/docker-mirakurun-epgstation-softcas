@@ -49,16 +49,12 @@ services:
     restart: always
 
   cronjob:
-    container_name: cronjob
-    build:
-      context: "./cron"
-      dockerfile: "Dockerfile"
+    image: tinslice/crontab
+    container_name: crontab
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ./cron/config.json:/opt/crontab/config.json
       - ./cron/scripts:/scripts
-      - ./cron/crontab:/opt/crontab
-    restart: always
+    environment:
+      CRON: '0 * * * * /scripts/annict-subscription-scraper.sh'
 
 volumes:
 #  mysql-db:
