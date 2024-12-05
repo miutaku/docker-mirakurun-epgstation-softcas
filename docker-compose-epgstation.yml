@@ -1,6 +1,6 @@
 ---
 services:
-# Using Oracle Cloud MySQL Heatwave instance
+# Using TiDB serverless
 #  mysql:
 #    container_name: mariadb
 #    image: mariadb:10.5
