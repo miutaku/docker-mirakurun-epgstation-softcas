@@ -15,7 +15,8 @@ RUN apt-get update && \
 #ffmpeg build
     mkdir /tmp/ffmpeg_sources && \
     cd /tmp/ffmpeg_sources && \
-    curl -fsSL http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2 | tar -xj --strip-components=1 && \
+    wget http://ffmpeg.org/releases/ffmpeg-${FFMPEG_VERSION}.tar.bz2 && \
+    tar -xj --strip-components=1 -f ffmpeg-${FFMPEG_VERSION}.tar.bz2 && \
     ./configure \
       --prefix=/usr/local \
       --disable-shared \
