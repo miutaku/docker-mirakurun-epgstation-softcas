@@ -25,7 +25,7 @@ jobs:
             type=raw,value=latest
             type=sha,prefix=,suffix=,format=short
 
-      - name: Build and push epgstation container image
+      - name: Build epgstation container image
         uses: docker/build-push-action@v5
         with:
           file: ./epgstation/Dockerfile
