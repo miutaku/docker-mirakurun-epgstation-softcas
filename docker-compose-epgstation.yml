@@ -47,7 +47,7 @@ services:
     restart: always
 
   cronjob:
-    image: tinslice/crontab
+    image: ghcr.io/miutaku/docker-crontab-arm64:latest
     container_name: crontab
     volumes:
       - ./cron/scripts:/scripts
