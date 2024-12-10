@@ -27,8 +27,8 @@ services:
       - ./epgstation/data:/app/data
       - ./epgstation/logs:/app/logs
       - ./epgstation/recordedTmp:/app/recordedTmp
-      - nas_recorded:/app/recorded
-      - nas_thumbnail:/app/thumbnail
+      - nas/recorded:/app/recorded
+      - nas/thumbnail:/app/thumbnail
       - /var/run:/var/run
 #    privileged: true
     environment:
@@ -57,16 +57,11 @@ services:
 volumes:
 #  mysql-db:
 #    driver: local
-  nas_recorded:
+  nas:
     driver_opts:
       type: cifs
       o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,file_mode=0777,dir_mode=0777'
-      device: "//__CIFS_HOST__/recorded"
-  nas_thumbnail:
-    driver_opts:
-      type: cifs
-      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,file_mode=0777,dir_mode=0777'
-      device: "//__CIFS_HOST__/thumbnail"
+      device: "//__CIFS_HOST__"
 
 networks:
   default:
