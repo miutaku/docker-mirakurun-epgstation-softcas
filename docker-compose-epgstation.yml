@@ -60,13 +60,13 @@ volumes:
   nas_recorded:
     driver_opts:
       type: cifs
-      o: 'username=__NFS_USER__,password=__NFS_PASSWORD__,file_mode=0777,dir_mode=0777'
-      device: "//__NFS_HOST__/recorded/"
+      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,file_mode=0777,dir_mode=0777'
+      device: "//__CIFS_HOST__/recorded"
   nas_thumbnail:
     driver_opts:
       type: cifs
-      o: 'username=__NFS_USER__,password=__NFS_PASSWORD__,file_mode=0777,dir_mode=0777'
-      device: "//__NFS_HOST__/thumbnail/"
+      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,file_mode=0777,dir_mode=0777'
+      device: "//__CIFS_HOST__/thumbnail"
 
 networks:
   default:
