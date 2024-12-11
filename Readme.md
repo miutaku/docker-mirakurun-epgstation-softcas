@@ -8,7 +8,7 @@ Mirakurunは家にチューナーがある関係で家で、それ以外はク�
 
 ### mirakurun node
 ```shell
-$ docekr login
+$ docker login
 $ docker compose -f docker-compose-mirakurun.yml up
 ```
 
