@@ -1,0 +1,43 @@
+#- name: PX-S1UD-1
+#  types:
+#    - GR
+#  command: recdvb --b25 --dev 0 <channel> - -
+#  isDisabled: true
+#
+#- name: PX-S1UD-2
+#  types:
+#    - GR
+#  command: recdvb --b25 --dev 1 <channel> - -
+#  isDisabled: true
+#
+#- name: PX-S1UD-3
+#  types:
+#    - GR
+#  command: recdvb --b25 --dev 2 <channel> - -
+#  isDisabled: true
+
+- name: PT3-S1
+  types:
+    - BS
+    - CS
+  command: recdvb --b25 --dev 0 <channel> - -
+  isDisabled: false
+
+- name: PT3-S2
+  types:
+    - BS
+    - CS
+  command: recdvb --b25 --dev 1 <channel> - -
+  isDisabled: false
+
+- name: PT3-T1
+  types:
+    - GR
+  command: recdvb --b25 --dev 2 <channel> - -
+  isDisabled: false
+
+- name: PT3-T2
+  types:
+    - GR
+  command: recdvb --b25 --dev 3 <channel> - -
+  isDisabled: false

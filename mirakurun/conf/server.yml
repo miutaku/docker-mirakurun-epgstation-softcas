@@ -1,0 +1,14 @@
+path: /var/run/mirakurun.sock
+port: 40772
+highWaterMark: 268435456
+logLevel: 2
+allowIPv4CidrRanges:
+  - 10.0.0.0/8
+  - 127.0.0.0/8
+  - 172.16.0.0/12
+  - 192.168.0.0/16
+  - 100.64.0.0/10 # tailscale
+allowIPv6CidrRanges:
+  - fc00::/7
+disableIPv6: true
+hostname: mirakurun
