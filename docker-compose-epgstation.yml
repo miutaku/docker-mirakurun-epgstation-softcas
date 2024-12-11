@@ -50,7 +50,7 @@ services:
     volumes:
       - ./cron/scripts:/scripts
     environment:
-      CRON: '0 * * * * /scripts/annict-subscription-scraper.sh'
+      CRON: '0 * * * * /scripts/annict-subscription-scraper.sh danime_store'
 
 volumes:
   mysql-db:
