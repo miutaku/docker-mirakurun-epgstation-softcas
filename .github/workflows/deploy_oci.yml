@@ -33,6 +33,8 @@ jobs:
             cd docker-mirakurun-epgstation-softcas
             docker compose -f docker-compose-epgstation.yml down
             git checkout . && git checkout v2 && git pull origin v2
+            sed -i 's/__MIRAKURUN_HOST__/${{ secrets.MIRAKURUN_HOST }}/g' epgstation/config/config.yml
+            sed -i 's/__MIRAKURUN_PORT__/${{ secrets.MIRAKURUN_PORT }}/g' epgstation/config/config.yml
             sed -i 's/__MYSQL_HOST__/${{ secrets.TiDB_HOST }}/g' epgstation/config/config.yml
             sed -i 's/__MYSQL_PORT__/${{ secrets.TiDB_PORT }}/g' epgstation/config/config.yml
             sed -i 's/__MYSQL_USER__/${{ secrets.TiDB_USER }}/g' epgstation/config/config.yml
