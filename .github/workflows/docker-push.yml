@@ -3,6 +3,8 @@ name: docker push
 on:
   push:
     branches: [ "v2" ]
+    paths:
+      - 'epgstation/**'
 
 jobs:
   push:

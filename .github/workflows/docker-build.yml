@@ -1,14 +1,14 @@
 ---
 name: docker build
 on:
-    push:
-        branches-ignore: [ "v2" ]
-        paths:
-            - 'epgstation/**'
-    pull_request:
-        branches: [ "*" ]
-        paths:
-            - 'epgstation/**'
+  push:
+    branches-ignore: [ "v2" ]
+    paths:
+      - 'epgstation/**'
+  pull_request:
+    branches: [ "*" ]
+    paths:
+      - 'epgstation/**'
 
 jobs:
   build:
