@@ -1,12 +1,12 @@
 port: 8888
-mirakurunPath: http://mirakurun:40772/
+mirakurunPath: http://__MIRAKURUN_HOST__:__MIRAKURUN_PORT__/
 
 dbtype: mysql
 mysql:
-    host: __MYSQL_HOST__
-    port: __MYSQL_PORT__
-    user: __MYSQL_USER__
-    password: __MYSQL_PASSWORD__
+    host: mysql
+    port: 3306
+    user: epgstation
+    password: epgstation
     database: epgstation
 needToReplaceEnclosingCharacters: true
 epgUpdateIntervalTime: 10

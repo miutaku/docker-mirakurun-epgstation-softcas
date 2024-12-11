@@ -1,23 +1,22 @@
 ---
 services:
-# Using TiDB serverless
-#  mysql:
-#    container_name: mariadb
-#    image: mariadb:10.5
-#    volumes:
-#      - ./mysql-db:/var/lib/mysql
-#    environment:
-#      MYSQL_USER: epgstation
-#      MYSQL_PASSWORD: epgstation
-#      MYSQL_ROOT_PASSWORD: epgstation
-#      MYSQL_DATABASE: epgstation
-#      TZ: "Asia/Tokyo"
-#    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1
-#    restart: always
-#    logging:
-#      options:
-#        max-size: "10m"
-#        max-file: "3"
+  mysql:
+    container_name: mariadb
+    image: mariadb:10.5
+    volumes:
+      - ./mysql-db:/var/lib/mysql
+    environment:
+      MYSQL_USER: epgstation
+      MYSQL_PASSWORD: epgstation
+      MYSQL_ROOT_PASSWORD: epgstation
+      MYSQL_DATABASE: epgstation
+      TZ: "Asia/Tokyo"
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --performance-schema=false --expire_logs_days=1
+    restart: always
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
 
   epgstation:
     container_name: epgstation
@@ -33,9 +32,8 @@ services:
 #    privileged: true
     environment:
       TZ: "Asia/Tokyo"
-      NOTIFY_WEBHOOK: 
-#    depends_on:
-#      - mysql
+    depends_on:
+      - mysql
     ports:
       - "8888:8888"
       - "8889:8889"
@@ -55,17 +53,17 @@ services:
       CRON: '0 * * * * /scripts/annict-subscription-scraper.sh'
 
 volumes:
-#  mysql-db:
-#    driver: local
+  mysql-db:
+    driver: local
   nas_recorded:
     driver_opts:
       type: cifs
-      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,file_mode=0777,dir_mode=0777'
+      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__'
       device: "//__CIFS_HOST__/recorded"
   nas_thumbnail:
     driver_opts:
       type: cifs
-      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,file_mode=0777,dir_mode=0777'
+      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__'
       device: "//__CIFS_HOST__/thumbnail"
 
 networks:
