@@ -12,7 +12,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - ./mirakurun/conf:/usr/local/etc/mirakurun
-      - ./mirakurun/db:/usr/local/var/db/mirakurun
+      - mirakurun-db:/usr/local/var/db/mirakurun
     devices:
       - /dev/bus:/dev/bus
       - /dev/dvb:/dev/dvb
@@ -23,3 +23,9 @@ services:
 networks:
   default:
     name: rec_server
+volumes:
+  mirakurun-db:
+    driver_opts:
+      type: cifs
+      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__'
+      device: "//__CIFS_HOST__/mirakurun-db"
