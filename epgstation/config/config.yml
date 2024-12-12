@@ -1,6 +1,7 @@
 port: 8888
 mirakurunPath: http://__MIRAKURUN_HOST__:__MIRAKURUN_PORT__/
 
+# DB
 dbtype: mysql
 mysql:
     host: mysql
@@ -9,12 +10,17 @@ mysql:
     password: epgstation
     database: epgstation
 needToReplaceEnclosingCharacters: true
+
 epgUpdateIntervalTime: 10
 
+# Priority
 conflictPriority: 1
 recPriority: 2
+
+# Log
 isEnabledDropCheck: true
-recordingStartCommand: '/bin/sh %ROOT%/config/notify.sh Start_recording'
+
+# File path
 recordedFormat: '%YEAR%年%MONTH%月%DAY%日%HOUR%時%MIN%分%SEC%秒-%TITLE%'
 recordedFileExtension: .m2ts
 recordedTmp: '%ROOT%/recordedTmp'
@@ -24,15 +30,21 @@ recorded:
       limitThreshold: 10000
       action: 'remove'
 
+# Thumbnail
 thumbnail: '%ROOT%/thumbnail'
 thumbnailSize: 480x270
 thumbnailPosition: 5
 
+# Commands
+recordingStartCommand: '/bin/sh %ROOT%/config/notify.sh __NOTIFY_WEBHOOK__ 録画済 ${HALF_WIDTH_NAME}'
+encodingFinishCommand: '/bin/sh %ROOT%/config/notify.sh __NOTIFY_WEBHOOK__ エンコード済 ${HALF_WIDTH_NAME}'
+recordingPrepRecFailedCommand: '/bin/sh %ROOT%/config/notify.sh  __CRITICAL_WEBHOOK__ 録画開始前にエラー発生 ${HALF_WIDTH_NAME}'
+recordingFailedCommand: '/bin/sh %ROOT%/config/notify.sh  __CRITICAL_WEBHOOK__ 録画中にエラー発生 ${HALF_WIDTH_NAME}'
+
+# Encode
 ffmpeg: /usr/local/bin/ffmpeg
 ffprobe: /usr/local/bin/ffprobe
-
 encodeProcessNum: 4
-encodingFinishCommand: '/bin/sh %ROOT%/config/notify.sh finish_encording'
 concurrentEncodeNum: 1
 encode:
     - name: H.264
@@ -40,6 +52,7 @@ encode:
       suffix: .mp4
       rete: 4.0
 
+# Stream URL
 urlscheme:
     m2ts:
         ios: vlc-x-callback://x-callback-url/stream?url=http://ADDRESS
@@ -50,6 +63,7 @@ urlscheme:
     download:
         ios: vlc-x-callback://x-callback-url/stream?url=http://ADDRESS
 
+# Stream encoding
 stream:
     live:
         ts:

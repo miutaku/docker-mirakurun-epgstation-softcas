@@ -39,7 +39,8 @@ jobs:
             sed -i 's/__MYSQL_PORT__/${{ secrets.TiDB_PORT }}/g' epgstation/config/config.yml
             sed -i 's/__MYSQL_USER__/${{ secrets.TiDB_USER }}/g' epgstation/config/config.yml
             sed -i 's/__MYSQL_PASSWORD__/${{ secrets.TiDB_PASSWORD }}/g' epgstation/config/config.yml
-            sed -i 's/__NOTIFY_WEBHOOK__/${{ secrets.NOTIFY_WEBHOOK }}/g' epgstation/config/notify.sh
+            sed -i 's|__NOTIFY_WEBHOOK__|${{ secrets.NOTIFY_WEBHOOK }}|g' epgstation/config/config.yml
+            sed -i 's|__CRITICAL_WEBHOOK__|${{ secrets.CRITICAL_WEBHOOK }}|g' epgstation/config/config.yml
             sed -i 's/__CIFS_USER__/${{ secrets.CIFS_USER }}/g' docker-compose-epgstation.yml
             sed -i 's/__CIFS_PASSWORD__/${{ secrets.CIFS_PASSWORD }}/g' docker-compose-epgstation.yml
             sed -i 's/__CIFS_HOST__/${{ secrets.CIFS_HOST }}/g' docker-compose-epgstation.yml
