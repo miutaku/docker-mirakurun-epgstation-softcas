@@ -33,7 +33,7 @@ recorded:
 # Thumbnail
 thumbnail: '%ROOT%/thumbnail'
 thumbnailSize: 480x270
-thumbnailPosition: 5
+thumbnailPosition: 10
 
 # Commands
 recordingStartCommand: "/bin/sh %ROOT%/config/notify.sh __NOTIFY_WEBHOOK__ 録画開始"
