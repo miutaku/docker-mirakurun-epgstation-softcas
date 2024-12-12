@@ -4,6 +4,11 @@ on:
   push:
     branches:
       - v2
+    paths:
+      - 'docker-compose-epgstation.yml'
+      - 'epgstation/**'
+      - 'cron/**'
+
   workflow_run:
     workflows: ["docker push"]
     types:
