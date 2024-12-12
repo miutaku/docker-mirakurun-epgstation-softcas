@@ -36,10 +36,10 @@ thumbnailSize: 480x270
 thumbnailPosition: 5
 
 # Commands
-recordingStartCommand: "/bin/sh %ROOT%/config/notify.sh __NOTIFY_WEBHOOK__ 録画開始 %HALF_WIDTH_NAME%"
-encodingFinishCommand: "/bin/sh %ROOT%/config/notify.sh __NOTIFY_WEBHOOK__ エンコード済 %HALF_WIDTH_NAME%"
-recordingPrepRecFailedCommand: "/bin/sh %ROOT%/config/notify.sh __CRITICAL_WEBHOOK__ 録画開始前にエラー発生 %HALF_WIDTH_NAME%"
-recordingFailedCommand: "/bin/sh %ROOT%/config/notify.sh  __CRITICAL_WEBHOOK__ 録画中にエラー発生 %HALF_WIDTH_NAME%"
+recordingStartCommand: "/bin/sh %ROOT%/config/notify.sh __NOTIFY_WEBHOOK__ 録画開始"
+encodingFinishCommand: "/bin/sh %ROOT%/config/notify.sh __NOTIFY_WEBHOOK__ エンコード済"
+recordingPrepRecFailedCommand: "/bin/sh %ROOT%/config/notify.sh __CRITICAL_WEBHOOK__ 録画開始前にエラー発生"
+recordingFailedCommand: "/bin/sh %ROOT%/config/notify.sh  __CRITICAL_WEBHOOK__ 録画中にエラー発生"
 
 # Encode
 ffmpeg: /usr/local/bin/ffmpeg
