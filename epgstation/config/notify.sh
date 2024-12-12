@@ -3,7 +3,6 @@ WEBHOOK_URL=$1
 MESSAGE=$2
 TITLENAME=$HALF_WIDTH_NAME
 
-# 投稿テスト
 curl -s -i -H "Content-Type: application/json" --data-binary @- "$WEBHOOK_URL" <<EOF
 {
    "type":"message",
