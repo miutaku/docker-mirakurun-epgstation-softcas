@@ -51,9 +51,8 @@ RUN apt-get update && \
 
 # docker container の中で日本語を使うため
 ENV DEBIAN_FRONTEND noninteractive
-ENV LOCALE="locales language-pack-ja-base language-pack-ja"
 RUN apt-get update && \
-    apt-get install -y $LOCALE
+    apt-get install -y locales
 RUN echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen && \
     locale-gen ja_JP.UTF-8 && \
     dpkg-reconfigure locales && \
