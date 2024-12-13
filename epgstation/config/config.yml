@@ -23,7 +23,7 @@ isEnabledDropCheck: true
 # File path
 recordedFormat: '%YEAR%年%MONTH%月%DAY%日%HOUR%時%MIN%分%SEC%秒-%TITLE%'
 recordedFileExtension: .m2ts
-#recordedTmp: '%ROOT%/recordedTmp'
+recordedTmp: '%ROOT%/recordedTmp'
 recorded:
     - name: recorded
       path: '%ROOT%/recorded'
