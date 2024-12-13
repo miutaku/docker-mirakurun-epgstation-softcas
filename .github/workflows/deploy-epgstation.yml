@@ -10,7 +10,7 @@ on:
       - 'cron/**'
 
   workflow_run:
-    workflows: ["docker push"]
+    workflows: ["docker push epgstation"]
     types:
       - completed
 
