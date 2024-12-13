@@ -2,6 +2,7 @@ FROM ghcr.io/miutaku/epgstation:latest
 #FROM l3tnun/epgstation:master-debian
 
 ENV DEV="make gcc git g++ automake wget autoconf build-essential libass-dev libfreetype6-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texinfo zlib1g-dev"
+ENV LOCALE_DEV="locales"
 ENV FFMPEG_VERSION=7.1
 
 RUN apt-get update && \
@@ -42,9 +43,17 @@ RUN apt-get update && \
     make -j$(nproc) && \
     make install && \
 \
+# locale
+RUN echo "ja_JP.UTF-8 UTF-8" > /etc/locale.gen && \
+    locale-gen ja_JP.UTF-8 && \
+    dpkg-reconfigure locales && \
+    /usr/sbin/update-locale LANG=ja_JP.UTF-8 && \
+\
 # 不要なパッケージを削除
-    apt-get -y remove $DEV && \
+    apt-get -y remove $DEV $LOCALE_DEV && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* && \
     rm -rf /tmp/*
+
+ENV LC_ALL ja_JP.UTF-8
