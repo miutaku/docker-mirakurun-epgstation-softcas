@@ -37,6 +37,7 @@ jobs:
             git clone https://github.com/miutaku/docker-mirakurun-epgstation-softcas.git
             cd docker-mirakurun-epgstation-softcas
             docker compose -f docker-compose-epgstation.yml down
+            docker image prune -f
             git checkout . && git checkout v2 && git pull origin v2
             sed -i 's/__MIRAKURUN_HOST__/${{ secrets.MIRAKURUN_HOST }}/g' epgstation/config/config.yml
             sed -i 's/__MIRAKURUN_PORT__/${{ secrets.MIRAKURUN_PORT }}/g' epgstation/config/config.yml
