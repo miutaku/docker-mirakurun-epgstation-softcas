@@ -8,6 +8,7 @@ allowIPv4CidrRanges:
   - 172.16.0.0/12
   - 192.168.0.0/16
   - 100.64.0.0/10 # tailscale
+  - __EPGSTATION_HOST__/32
 allowIPv6CidrRanges:
   - fc00::/7
 disableIPv6: true

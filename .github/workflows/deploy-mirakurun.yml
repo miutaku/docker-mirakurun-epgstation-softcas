@@ -1,0 +1,42 @@
+---
+name: Deploy Mirakurun
+on:
+  push:
+    branches:
+      - v2
+    paths:
+      - 'docker-compose-mirakurun.yml'
+      - 'mirakurun/**'
+
+  workflow_run:
+    workflows: ["docker push"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    name: Auto Deploy via ssh
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
+          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
+          tags: tag:ci
+
+      - name: Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.TS_SSH_HOST }}
+          username: ${{ secrets.TS_SSH_USERNAME }}
+          key: ${{ secrets.TS_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            git clone https://github.com/miutaku/docker-mirakurun-epgstation-softcas.git
+            cd docker-mirakurun-epgstation-softcas
+            docker compose -f docker-compose-mirakurun.yml down
+            docker image rm -f m1u7aku/softcas-mirakurun
+            git checkout . && git checkout v2 && git pull origin v2
+            sed -i 's/__EPGSTATION_HOST__/${{ secrets.EPGSTATION_HOST }}/g' mirakurun/conf/server.yml
+            docker compose -f docker-compose-mirakurun.yml up -d
