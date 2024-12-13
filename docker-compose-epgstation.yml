@@ -31,8 +31,7 @@ services:
       - /var/run:/var/run
 #    privileged: true
     environment:
-      LANG: "C.UTF-8"
-      LANGUAGE: "en_US:"
+      LANG: "ja_JP.UTF-8"
       TZ: "Asia/Tokyo"
     depends_on:
       - mysql
