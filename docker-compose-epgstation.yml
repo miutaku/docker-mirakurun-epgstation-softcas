@@ -59,12 +59,12 @@ volumes:
   nas_recorded:
     driver_opts:
       type: cifs
-      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,iocharset=utf8,rw,vers=3.0'
+      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,rw,vers=3.0'
       device: "//__CIFS_HOST__/recorded"
   nas_thumbnail:
     driver_opts:
       type: cifs
-      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,iocharset=utf8,rw,vers=3.0'
+      o: 'username=__CIFS_USER__,password=__CIFS_PASSWORD__,rw,vers=3.0'
       device: "//__CIFS_HOST__/thumbnail"
 
 networks:
