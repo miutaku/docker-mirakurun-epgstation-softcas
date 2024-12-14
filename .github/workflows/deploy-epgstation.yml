@@ -29,8 +29,8 @@ jobs:
       - name: Deploy
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.TS_SSH_HOST }}
-          username: ${{ secrets.TS_SSH_USERNAME }}
+          host: ${{ secrets.TS_EPGSTATION_HOST }}
+          username: ${{ secrets.TS_EPGSTATION_USERNAME }}
           key: ${{ secrets.TS_SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
