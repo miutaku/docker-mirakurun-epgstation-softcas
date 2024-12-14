@@ -5,6 +5,7 @@ on:
     branches:
       - v2
     paths:
+      - '.github/workflows/deploy-epgstation.yml'
       - 'docker-compose-epgstation.yml'
       - 'epgstation/**'
       - 'cron/**'
