@@ -20,7 +20,7 @@
   types:
     - BS
     - CS
-  command: recdvb --b25 --dev 0 --sid <sid> <channel> - -
+  command: recdvb --b25 --dev 0 --lnb 15 <channel> - -
   isDisabled: false
 
 - name: PT3-T1
@@ -33,7 +33,7 @@
   types:
     - BS
     - CS
-  command: recdvb --b25 --dev 0 --sid <sid> <channel> - -
+  command: recdvb --b25 --dev 2 --lnb 15 <channel> - -
   isDisabled: false
 
 - name: PT3-T2
