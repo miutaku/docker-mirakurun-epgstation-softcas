@@ -19,7 +19,6 @@ $ docker compose -f docker-compose-epgstation.yml up
 
 # アーキテクチャ
 
-![](./infra.png)
 
 # Qiita
 
