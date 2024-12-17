@@ -82,7 +82,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="CQMgPO9kLlWOVgrRf25I-3" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="55" y="350" width="120" height="70" as="geometry" />
+          <mxGeometry x="55" y="350" width="115" height="70" as="geometry" />
         </mxCell>
         <mxCell id="L0Lygmf6UdGT1wYShLKi-5" value="" style="sketch=0;pointerEvents=1;shadow=0;dashed=0;html=1;strokeColor=none;fillColor=#005F4B;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;align=center;outlineConnect=0;shape=mxgraph.veeam2.nas;" parent="1" vertex="1">
           <mxGeometry x="661" y="505" width="28.000000000000004" height="28.000000000000004" as="geometry" />
