@@ -20,3 +20,7 @@ $ docker compose -f docker-compose-epgstation.yml up
 # アーキテクチャ
 
 ![](./infra.png)
+
+# Qiita
+
+[[ドケチ話] 無料で200GBのNASをクラウドで手に入れた](https://qiita.com/Miutaku/items/ef8dda7516cf9ecce83a)
