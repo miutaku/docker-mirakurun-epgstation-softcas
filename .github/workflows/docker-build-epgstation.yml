@@ -2,7 +2,7 @@
 name: docker build epgstation
 on:
   push:
-    branches-ignore: [ "v2" ]
+    branches-ignore: [ "main" ]
     paths:
       - 'epgstation/**'
   pull_request:
