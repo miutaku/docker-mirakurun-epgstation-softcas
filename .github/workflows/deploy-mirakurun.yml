@@ -3,7 +3,7 @@ name: Deploy Mirakurun
 on:
   push:
     branches:
-      - v2
+      - main
     paths:
       - 'docker-compose-mirakurun.yml'
       - 'mirakurun/**'
@@ -37,6 +37,6 @@ jobs:
             cd docker-mirakurun-epgstation-softcas
             docker compose -f docker-compose-mirakurun.yml down
             docker image rm -f m1u7aku/softcas-mirakurun
-            git checkout . && git checkout v2 && git pull origin v2
+            git checkout . && git checkout main && git pull origin main
             sed -i 's/__EPGSTATION_HOST__/${{ secrets.EPGSTATION_HOST }}/g' mirakurun/conf/server.yml
             docker compose -f docker-compose-mirakurun.yml up -d
