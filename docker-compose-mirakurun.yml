@@ -19,6 +19,15 @@ services:
     environment:
       TZ: Asia/Tokyo
     restart: always
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
 
 networks:
   default:

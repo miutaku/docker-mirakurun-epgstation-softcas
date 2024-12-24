@@ -52,6 +52,15 @@ services:
       - ./cron/scripts:/scripts
     environment:
       CRON: '0 * * * * /scripts/annict-subscription-scraper.sh danime_store'
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - '/:/host:ro,rslave'
 
 volumes:
   mysql-db:
