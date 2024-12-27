@@ -3,7 +3,6 @@ LABEL maintainer "miutaku <miutaku@miutaku.dev>"
 
 ENV DOCKER="YES"
 
-COPY libpcsclite.so.1.0.0 /usr/lib/libpcsclite.so.1.0.0
 RUN set -x \
 	&& apk upgrade --update \
 	&& apk add \
