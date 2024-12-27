@@ -1,0 +1,3 @@
+[submodule "mirakurun/origin/main"]
+	path = mirakurun/origin/main
+	url = git@github.com:miutaku/softcas.git
