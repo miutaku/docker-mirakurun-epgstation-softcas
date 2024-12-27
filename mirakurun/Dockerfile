@@ -3,6 +3,7 @@ LABEL maintainer "miutaku <miutaku@miutaku.dev>"
 
 ENV DOCKER="YES"
 
+COPY libpcsclite.so.1.0.0 /usr/lib/libpcsclite.so.1.0.0
 RUN set -x \
 	&& apk upgrade --update \
 	&& apk add \
@@ -45,18 +46,18 @@ RUN set -x \
 	# mirakurun
 	&& npm install mirakurun@latest -g --unsafe --production \
 	\
-	# softcas
-	&& cd /tmp/ \
-	&& wget http://web.archive.org/web/20140928031051/http://www.wazoku.net/softcas.zip \
-	&& unzip softcas.zip \
-	&& cd /tmp/softcas \
-	&& wget -O winscard.cpp http://pastebin.com/raw/5144Ah9g \
-	&& wget -O Makefile http://pastebin.com/raw/FQdSixkB \
-	&& sed -i "/LONG SCardGetStatusChange/s/LPSCARD_READERSTATE_A/LPSCARD_READERSTATE/g" winscard.cpp \
-	&& sed -i "s/SCARD_IO_REQUEST g_rgSCardT1Pci;/const SCARD_IO_REQUEST g_rgSCardT1Pci = { SCARD_PROTOCOL_T1, sizeof(SCARD_IO_REQUEST) };/g" winscard.cpp \
-	&& make \
-	&& mv /usr/lib/libpcsclite.so.1.0.0 /usr/lib/libpcsclite.so.1.0.0.backup \
-	&& cp libpcsclite.so.1.0.0 /usr/lib/libpcsclite.so.1.0.0 \
+#	# softcas
+#	&& cd /tmp/ \
+#	&& wget http://web.archive.org/web/20140928031051/http://www.wazoku.net/softcas.zip \
+#	&& unzip softcas.zip \
+#	&& cd /tmp/softcas \
+#	&& wget -O winscard.cpp http://pastebin.com/raw/5144Ah9g \
+#	&& wget -O Makefile http://pastebin.com/raw/FQdSixkB \
+#	&& sed -i "/LONG SCardGetStatusChange/s/LPSCARD_READERSTATE_A/LPSCARD_READERSTATE/g" winscard.cpp \
+#	&& sed -i "s/SCARD_IO_REQUEST g_rgSCardT1Pci;/const SCARD_IO_REQUEST g_rgSCardT1Pci = { SCARD_PROTOCOL_T1, sizeof(SCARD_IO_REQUEST) };/g" winscard.cpp \
+#	&& make \
+#	&& mv /usr/lib/libpcsclite.so.1.0.0 /usr/lib/libpcsclite.so.1.0.0.backup \
+#	&& cp libpcsclite.so.1.0.0 /usr/lib/libpcsclite.so.1.0.0 \
 	\
 	# arib25
 	&& cd /tmp/ \
