@@ -19,7 +19,7 @@
 - name: PT3-S1
   types:
     - BS
-    - CS
+#    - CS
   command: recdvb --b25 --dev 0 <channel> - -
   isDisabled: false
 
@@ -32,7 +32,7 @@
 - name: PT3-S2
   types:
     - BS
-    - CS
+#    - CS
   command: recdvb --b25 --dev 2 <channel> - -
   isDisabled: false
 
