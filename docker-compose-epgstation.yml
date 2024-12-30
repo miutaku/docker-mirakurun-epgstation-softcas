@@ -46,15 +46,15 @@ services:
     restart: always
 
   cronjob:
-    image: ghcr.io/miutaku/docker-crontab-arm64:latest
     container_name: crontab
+    image: ghcr.io/miutaku/docker-crontab-arm64:latest
     volumes:
       - ./cron/scripts:/scripts
     environment:
       CRON: '0 * * * * /scripts/annict-subscription-scraper.sh danime_store'
   node-exporter:
-    image: prom/node-exporter:latest
     container_name: node-exporter
+    image: prom/node-exporter:latest
     ports:
       - "9100:9100"
     command:
