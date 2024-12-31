@@ -2,3 +2,6 @@
 	path = mirakurun/softcas
 	url = git@github.com:miutaku/softcas.git
 	branch = main
+[submodule "epgstation/config/enc"]
+	path = epgstation/config/enc
+	url = https://gitlab.com/oioi555/epgs-multicodec-encjs.git
