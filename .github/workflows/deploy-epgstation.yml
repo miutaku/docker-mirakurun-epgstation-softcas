@@ -39,7 +39,7 @@ jobs:
             cd docker-mirakurun-epgstation-softcas
             docker compose -f docker-compose-epgstation.yml down
             docker image rm -f ghcr.io/${{ github.actor }}/epgstation-miutaku-oci
-            git checkout . && git checkout main && git pull origin main
+            git checkout . && git checkout main && git pull origin main && git submodule update --init --recursive
             sed -i 's/__MIRAKURUN_HOST__/${{ secrets.MIRAKURUN_HOST }}/g' epgstation/config/config.yml
             sed -i 's/__MIRAKURUN_PORT__/${{ secrets.MIRAKURUN_PORT }}/g' epgstation/config/config.yml
             sed -i 's/__MYSQL_HOST__/${{ secrets.TiDB_HOST }}/g' epgstation/config/config.yml
