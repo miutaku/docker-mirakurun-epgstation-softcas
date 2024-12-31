@@ -48,8 +48,12 @@ encodeProcessNum: 4
 concurrentEncodeNum: 1
 encode:
     - name: H.264
-      cmd: '%NODE% %ROOT%/config/enc.js'
-      suffix: .mp4
+      cmd: '%NODE% %ROOT%/config/enc/enc.js libx264'
+      suffix: -avc.mp4
+      rete: 4.0
+    - name: H.265
+      cmd: '%NODE% %ROOT%/config/enc/enc.js libx265'
+      suffix: -hevc.mp4
       rete: 4.0
 
 # Stream URL
